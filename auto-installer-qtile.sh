@@ -1,25 +1,27 @@
 #!/bin/bash
 
-# Instalar dependencias
-sudo apt-get update
-sudo apt-get install -y git python-pip python-xcffib libcairo2-dev libpango1.0-dev libxcb-ewmh-dev libxcb-util0-dev libxcb1-dev libxcb-randr0-dev libxcb-icccm4-dev libxcb-keysyms1-dev libxcb-xinerama0-dev libxcb-xrm-dev python-dbus python-gobject python-xlib python3-thunar fish
+# Actualizar la base de datos de paquetes e instalar los paquetes necesarios
+sudo pacman -Syu qtile thunar fish
 
-# Instalar QTile
-pip install xcffib
-pip install --no-cache-dir cairocffi
-pip install qtile
+# Configurar el gestor de ventana styling
+echo "exec qtile" >> ~/.xinitrc
 
-# Clonar el gestor de ventana styling
-git clone https://github.com/antoniosarosi/wal-qtile.git ~/.config/qtile
+# Configurar el editor de texto Thunar
+echo "export EDITOR=thunar" >> ~/.bashrc
 
-# Copiar el archivo de configuración de shortcuts
-wget https://raw.githubusercontent.com/qtile/qtile/master/libqtile/resources/default_config.py -O ~/.config/qtile/config.py
+# Configurar el terminal Fish
+echo "export SHELL=/usr/bin/fish" >> ~/.bashrc
 
-# Configurar Thunar como editor de texto predeterminado
-xdg-mime default Thunar.desktop text/plain
+# Reiniciar el sistema después de la instalación
+read -p "La instalación ha finalizado. ¿Desea reiniciar el sistema ahora? (s/n) " choice
+case "$choice" in
+  s|S ) sudo reboot;;
+  n|N ) echo "Por favor, reinicie el sistema manualmente más tarde.";;
+  * ) echo "Opción inválida. Por favor, reinicie el sistema manualmente más tarde.";;
+esac
 
-# Configurar Fish como shell predeterminado
-chsh -s /usr/bin/fish
-
-# Mensaje de finalización y reinicio del sistema
-echo "¡Instalación completada! Por favor, reinicie el sistema para que los cambios tengan efecto."
+# Consejos posteriores a la instalación
+echo "¡La instalación ha finalizado! Aquí hay algunos consejos adicionales para comenzar a usar Qtile:"
+echo "- Consulte la documentación oficial de Qtile para aprender más sobre cómo personalizar su configuración: https://qtile.org"
+echo "- Pruebe algunos de los atajos de teclado predeterminados de Qtile: Mod + Enter para abrir una nueva terminal, Mod + Shift + c para cerrar una ventana, etc."
+echo "- Personalice su archivo de configuración de Qtile (~/.config/qtile/config.py) para ajustar aún más el comportamiento de su sistema de ventana."
