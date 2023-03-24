@@ -121,4 +121,5 @@ echo "qtile ha sido instalado y configurado correctamente."
 else
 echo "qtile ha sido instalado correctamente."
 fi
+fi
 echo "¡Gracias por utilizar este script! Si desea configurar qtile en el futuro, ejecute el comando 'qtile config'."
